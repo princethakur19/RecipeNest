@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Model from "./Model"
 import InputForm from "./InputForm"
+import { NavLink } from "react-router-dom"
 
 
 function Navbar() {
@@ -14,10 +15,10 @@ function Navbar() {
       <header>
         <h2>RecipeNest</h2>
         <ul>
-            <li>Home</li>
-            <li>My Recipe</li>
-            <li>Favourites</li>
-            <li onClick={checkLogin}>Login</li>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/myRecipe">My Recipe</NavLink></li>
+            <li><NavLink to="/favRecipe">Favourites</NavLink></li>
+            <li onClick={checkLogin}><p className="login">Login</p></li>
         </ul>
       </header>
       { (isOpen) && <Model onClose={()=> setIsOpen(false)}><InputForm setIsOpen={()=>setIsOpen(false)} /></Model>}
