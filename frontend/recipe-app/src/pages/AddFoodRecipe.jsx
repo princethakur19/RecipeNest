@@ -39,7 +39,7 @@ const AddFoodRecipe = () => {
             </div>
             <div className="form-control">
                 <label>Recipe Image</label>
-                <textarea type="file" className="input" name="file" />
+                <input type="file" className="input" name="file" />
             </div>
             <button type="submit">Add Recipe</button>
         </form>
