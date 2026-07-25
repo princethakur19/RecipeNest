@@ -5,17 +5,22 @@ import { useNavigate } from "react-router-dom"
 const AddFoodRecipe = () => {
 
     const [recipeData, setRecipeData] = useState({})
+    const [error, setError] = useState("")
     const navigate = useNavigate()
     const onHandleChange = (e)=>{
         let val = (e.target.name === "ingredients") ? e.target.value.split(",") : e.target.value
         setRecipeData(pre => ({...pre, [e.target.name]:val}))
+        setError("")
     }
 
     const onHandleSubmit = async (e)=>{
         e.preventDefault()
-        console.log(recipeData)
-        await axios.post("http://localhost:5000/recipe", recipeData)
-        .then(()=>navigate("/"))
+        try {
+            await axios.post("http://localhost:5000/recipe", recipeData)
+            navigate("/")
+        } catch (err) {
+            setError(err.response?.data?.message || "Unable to add recipe. Please try again.")
+        }
     }
   return (
     <>
@@ -34,13 +39,14 @@ const AddFoodRecipe = () => {
                 <textarea type="text" className="input" name="ingredients" rows="5" onChange={onHandleChange}/>
             </div>
             <div className="form-control">
-                <label>Intructions</label>
-                <textarea type="text" className="input" name="intsructions" rows="5" onChange={onHandleChange}/>
+                <label>Instructions</label>
+                <textarea type="text" className="input" name="instructions" rows="5" onChange={onHandleChange}/>
             </div>
             <div className="form-control">
                 <label>Recipe Image</label>
                 <input type="file" className="input" name="file" />
             </div>
+            {error && <p className="error">{error}</p>}
             <button type="submit">Add Recipe</button>
         </form>
       </div>
