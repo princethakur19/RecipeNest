@@ -22,6 +22,7 @@ const getRecipe = async(req, res)=>{
     res.json(recipe)
 }
 const addRecipe = async (req, res) => {
+    console.log(req.file)
     const { title, ingredients, instructions } = req.body;
 
     if (!title || !ingredients || !instructions) {

@@ -8,7 +8,6 @@ const AddFoodRecipe = () => {
     const [error, setError] = useState("")
     const navigate = useNavigate()
     const onHandleChange = (e)=>{
-        console.log(e.target.files[0])
         let val = (e.target.name === "ingredients") ? e.target.value.split(",") : (e.target.name === "file") ? e.target.files[0] : e.target.value
         setRecipeData(pre => ({...pre, [e.target.name]:val}))
         setError("")
@@ -17,7 +16,11 @@ const AddFoodRecipe = () => {
     const onHandleSubmit = async (e)=>{
         e.preventDefault()
         try {
-            await axios.post("http://localhost:5000/recipe", recipeData)
+            await axios.post("http://localhost:5000/recipe", recipeData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             navigate("/")
         } catch (err) {
             setError(err.response?.data?.message || "Unable to add recipe. Please try again.")
