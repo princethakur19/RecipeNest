@@ -22,8 +22,8 @@ const getRecipe = async(req, res)=>{
     res.json(recipe)
 }
 const addRecipe = async (req, res) => {
-    console.log(req.file)
-    const { title, ingredients, instructions } = req.body;
+    const { title, ingredients, instructions, time } = req.body;
+    const coverImage = req.file.filename;
 
     if (!title || !ingredients || !instructions) {
         return res.status(400).json({
