@@ -8,7 +8,8 @@ const AddFoodRecipe = () => {
     const [error, setError] = useState("")
     const navigate = useNavigate()
     const onHandleChange = (e)=>{
-        let val = (e.target.name === "ingredients") ? e.target.value.split(",") : e.target.value
+        console.log(e.target.files[0])
+        let val = (e.target.name === "ingredients") ? e.target.value.split(",") : (e.target.name === "file") ? e.target.files[0] : e.target.value
         setRecipeData(pre => ({...pre, [e.target.name]:val}))
         setError("")
     }
@@ -44,7 +45,7 @@ const AddFoodRecipe = () => {
             </div>
             <div className="form-control">
                 <label>Recipe Image</label>
-                <input type="file" className="input" name="file" />
+                <input type="file" className="input" name="file" onChange={onHandleChange}/>
             </div>
             {error && <p className="error">{error}</p>}
             <button type="submit">Add Recipe</button>
