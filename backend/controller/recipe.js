@@ -31,7 +31,13 @@ const addRecipe = async (req, res) => {
         });
     }
 
-    const recipe = await Recipes.create(req.body);
+    const recipe = await Recipes.create({
+        title,
+        ingredients,
+        instructions,
+        time,
+        coverImage:req.file.filename
+    });
 
     res.status(201).json(recipe);
 };
