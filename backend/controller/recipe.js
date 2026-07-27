@@ -22,6 +22,7 @@ const getRecipe = async(req, res)=>{
     res.json(recipe)
 }
 const addRecipe = async (req, res) => {
+    console.log(req.user)
     const { title, ingredients, instructions, time } = req.body;
     const coverImage = req.file.filename;
 
@@ -31,15 +32,21 @@ const addRecipe = async (req, res) => {
         });
     }
 
+    if (!req.file) {
+        return res.status(400).json({
+            message: "Cover image is required"
+        });
+    }
+
     const recipe = await Recipes.create({
         title,
         ingredients,
         instructions,
         time,
-        coverImage:req.file.filename
+        coverImage: req.file.filename
     });
 
-    res.status(201).json(recipe);
+    return res.status(201).json(recipe);
 };
 const editRecipe = async (req, res) => {
     try {
