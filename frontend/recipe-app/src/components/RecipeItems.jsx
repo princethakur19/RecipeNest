@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import foodImg from '../assets/foodRecipe.png'
 import { BsFillStopwatchFill } from "react-icons/bs";
