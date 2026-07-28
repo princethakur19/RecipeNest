@@ -43,7 +43,8 @@ const addRecipe = async (req, res) => {
         ingredients,
         instructions,
         time,
-        coverImage: req.file.filename
+        coverImage: req.file.filename,
+        createdBy: req.user.id
     });
 
     return res.status(201).json(recipe);
