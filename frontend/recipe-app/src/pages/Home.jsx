@@ -3,6 +3,8 @@ import foodRecipe from '../assets/foodRecipe.png'
 import RecipeItems from '../components/RecipeItems'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import InputForm from '../components/InputForm'
+import Model from '../components/Model'
 
 
 function Home() {
