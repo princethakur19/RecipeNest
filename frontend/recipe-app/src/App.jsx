@@ -13,6 +13,10 @@ const getAllRecipe = async()=>{
   return allRecipe
 }
 
+const getAllRecipe = async()=>{
+  let user = JSON.parse(localStorage.getItem(user))
+}
+
 const router = createBrowserRouter([
   {path:"/",element:<MainNavigation />,children:[{path:"/",element:<Home/>, loader:getAllRecipe},
   {path:"/myRecipe",element:<Home />},
