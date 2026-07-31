@@ -9,7 +9,11 @@ function Home() {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const addRecipe=()=>{
-    navigate("/addRecipe")
+    let token = localStorage.getItem("token")
+    if(token)
+      navigate("/addRecipe")
+    else
+      setIsOpen(true)
   }
   return (
     <>
@@ -24,6 +28,7 @@ function Home() {
         </div>
       </section>
       <div className="bg"></div>
+      { (isOpen) && <Model onClose={()=> setIsOpen(false)}><InputForm setIsOpen={()=>setIsOpen(false)} /></Model>}
 
       <div className='recipe'>
         <RecipeItems />
