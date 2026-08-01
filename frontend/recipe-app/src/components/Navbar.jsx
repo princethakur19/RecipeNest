@@ -8,7 +8,7 @@ function Navbar() {
   const [isOpen,setIsOpen] = useState(false)
   let token = localStorage.getItem("token")
   const [isLogin, setIsLogin] = useState(token ? false : true)
-  let user = JSON.parse(localStorage.getItem(user))
+  let user = JSON.parse(localStorage.getItem("user"))
 
   useEffect(()=>{
     setIsLogin(token ? false : true)
