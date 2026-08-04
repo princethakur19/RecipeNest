@@ -3,6 +3,7 @@ import foodImg from '../assets/foodRecipe.png'
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 function RecipeItems() {
     const allRecipe = useLoaderData()
