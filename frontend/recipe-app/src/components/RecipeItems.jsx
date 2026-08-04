@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 
 function RecipeItems() {
     const allRecipe = useLoaderData()
+    let path = window.location.pathname === "/myRecipe" ? true : false
     console.log(allRecipe)
   return (
     <>
