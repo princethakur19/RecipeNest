@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom'
 import foodImg from '../assets/foodRecipe.png'
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 function RecipeItems() {
     const allRecipe = useLoaderData()
