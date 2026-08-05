@@ -25,7 +25,7 @@ function RecipeItems() {
                                 <FaHeart />
                                 <div className="action">
                                     <FaEdit />
-                                    <MdDelete />
+                                    <MdDelete className='deleteIcon' />
                                 </div>  
                             </div>
                         </div>
