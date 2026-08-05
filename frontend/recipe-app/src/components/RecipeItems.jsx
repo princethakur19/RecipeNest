@@ -23,8 +23,10 @@ function RecipeItems() {
                             <div className="icons">
                                 <div className="timmer"><BsFillStopwatchFill />30min</div>
                                 <FaHeart />
-                                <FaEdit />
-                                <MdDelete />
+                                <div className="action">
+                                    <FaEdit />
+                                    <MdDelete />
+                                </div>  
                             </div>
                         </div>
                     </div>
