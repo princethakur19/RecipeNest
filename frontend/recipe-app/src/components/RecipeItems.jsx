@@ -22,7 +22,7 @@ function RecipeItems() {
                             <div className="title">{item.title}</div>
                             <div className="icons">
                                 <div className="timmer"><BsFillStopwatchFill />30min</div>
-                                <FaHeart />
+                                {(!path)}<FaHeart />
                                 <div className="action">
                                     <FaEdit />
                                     <MdDelete className='deleteIcon' />
