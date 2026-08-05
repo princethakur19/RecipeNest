@@ -24,6 +24,7 @@ function RecipeItems() {
                                 <div className="timmer"><BsFillStopwatchFill />30min</div>
                                 <FaHeart />
                                 <FaEdit />
+                                <MdDelete />
                             </div>
                         </div>
                     </div>
