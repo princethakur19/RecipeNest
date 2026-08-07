@@ -24,7 +24,7 @@ function RecipeItems() {
                                 <div className="timmer"><BsFillStopwatchFill />30min</div>
                                 {(!path) ? <FaHeart /> :
                                 <div className="action">
-                                    <Link to={`/editRecipe/:id`}><FaEdit /></Link>
+                                    <Link to={`/editRecipe/${item._id}`} className='editIcon'><FaEdit /></Link>
                                     <MdDelete className='deleteIcon' />
                                 </div>  }
                             </div>
