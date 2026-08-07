@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 import foodImg from '../assets/foodRecipe.png'
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
@@ -24,7 +24,7 @@ function RecipeItems() {
                                 <div className="timmer"><BsFillStopwatchFill />30min</div>
                                 {(!path) ? <FaHeart /> :
                                 <div className="action">
-                                    <FaEdit />
+                                    <Link to={`/editRecipe/:id`}><FaEdit /></Link>
                                     <MdDelete className='deleteIcon' />
                                 </div>  }
                             </div>
