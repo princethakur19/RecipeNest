@@ -30,7 +30,7 @@ const EditRecipe = () => {
   return (
     <>
       <div className="container">
-        <for className="form" onSubmit={onHandleSubmit}>
+        <form className="form" onSubmit={onHandleSubmit}>
             <div className="form-control">
                 <label>Title</label>
                 <input type="text" className="input" name="title" onChange={onHandleChange}/>
@@ -53,7 +53,7 @@ const EditRecipe = () => {
             </div>
             {error && <p className="error">{error}</p>}
             <button type="submit">Add Recipe</button>
-        </for>
+        </form>
       </div>
     </>
   )
