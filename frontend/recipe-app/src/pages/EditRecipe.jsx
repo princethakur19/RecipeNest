@@ -1,12 +1,31 @@
 import axios from "axios"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 const EditRecipe = () => {
 
     const [recipeData, setRecipeData] = useState({})
     const [error, setError] = useState("")
     const navigate = useNavigate()
+    const{id} = useParams()
+
+    useEffect(()=>{
+        const getData = async()=>{
+            await axios.get(`http://localhost:5000/recipe/${}`)
+            .then(response=>{
+                let res = response.data
+                setRecipeData({
+                    title:res.title,
+                    ingredients:res.ingredients.join(","),
+                    instructions: res.instructions,
+                    time: res.time
+                })
+            })
+        }
+    },[])
+
+
+
     const onHandleChange = (e)=>{
         let val = (e.target.name === "ingredients") ? e.target.value.split(",") : (e.target.name === "file") ? e.target.files[0] : e.target.value
         setRecipeData(pre => ({...pre, [e.target.name]:val}))
@@ -52,7 +71,7 @@ const EditRecipe = () => {
                 <input type="file" className="input" name="file" onChange={onHandleChange}/>
             </div>
             {error && <p className="error">{error}</p>}
-            <button type="submit">Add Recipe</button>
+            <button type="submit">Edit Recipe</button>
         </form>
       </div>
     </>
