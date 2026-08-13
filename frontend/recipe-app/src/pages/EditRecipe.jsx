@@ -22,6 +22,7 @@ const EditRecipe = () => {
                 })
             })
         }
+        getData()
     },[])
 
 
@@ -52,19 +53,19 @@ const EditRecipe = () => {
         <form className="form" onSubmit={onHandleSubmit}>
             <div className="form-control">
                 <label>Title</label>
-                <input type="text" className="input" name="title" onChange={onHandleChange}/>
+                <input type="text" className="input" name="title" onChange={onHandleChange} value={recipeData.title}/>
             </div>
             <div className="form-control">
                 <label>Time</label>
-                <input type="text" className="input" name="time" onChange={onHandleChange}/>
+                <input type="text" className="input" name="time" onChange={onHandleChange} value={recipeData.time}/>
             </div>
             <div className="form-control">
                 <label>Ingredients</label>
-                <textarea type="text" className="input" name="ingredients" rows="5" onChange={onHandleChange}/>
+                <textarea type="text" className="input" name="ingredients" rows="5" onChange={onHandleChange} value={recipeData.ingredients}/>
             </div>
             <div className="form-control">
                 <label>Instructions</label>
-                <textarea type="text" className="input" name="instructions" rows="5" onChange={onHandleChange}/>
+                <textarea type="text" className="input" name="instructions" rows="5" onChange={onHandleChange} value={recipeData.instructions}/>
             </div>
             <div className="form-control">
                 <label>Recipe Image</label>
