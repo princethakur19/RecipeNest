@@ -36,13 +36,13 @@ const EditRecipe = () => {
     const onHandleSubmit = async (e)=>{
         e.preventDefault()
         try {
-            await axios.post("http://localhost:5000/recipe", recipeData, {
+            await axios.put(`http://localhost:5000/recipe/${id}`, recipeData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'authorization': 'bearer '+localStorage.getItem('token')
                 }
             })
-            navigate("/")
+            .then(()=> navigate("/myRecipe"))
         } catch (err) {
             setError(err.response?.data?.message || "Unable to add recipe. Please try again.")
         }

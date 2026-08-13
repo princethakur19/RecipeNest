@@ -54,7 +54,7 @@ const editRecipe = async (req, res) => {
     try {
         const recipe = await Recipes.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            {...req.body, coverImage:req.file.filename},
             { new: true }
         );
 
