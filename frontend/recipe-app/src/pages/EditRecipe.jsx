@@ -11,7 +11,7 @@ const EditRecipe = () => {
 
     useEffect(()=>{
         const getData = async()=>{
-            await axios.get(`http://localhost:5000/recipe/${}`)
+            await axios.get(`http://localhost:5000/recipe/${id}`)
             .then(response=>{
                 let res = response.data
                 setRecipeData({
