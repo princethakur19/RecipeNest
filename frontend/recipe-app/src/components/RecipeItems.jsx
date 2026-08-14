@@ -21,7 +21,7 @@ function RecipeItems() {
                         <div className="card-body">
                             <div className="title">{item.title}</div>
                             <div className="icons">
-                                <div className="timmer"><BsFillStopwatchFill />30min</div>
+                                <div className="timmer"><BsFillStopwatchFill />{item.time}</div>
                                 {(!path) ? <FaHeart /> :
                                 <div className="action">
                                     <Link to={`/editRecipe/${item._id}`} className='editIcon'><FaEdit /></Link>

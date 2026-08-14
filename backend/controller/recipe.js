@@ -52,9 +52,10 @@ const addRecipe = async (req, res) => {
 };
 const editRecipe = async (req, res) => {
     try {
+        let coverImage = req.file?.filename ? req.file?.filename : recipe.coverImage
         const recipe = await Recipes.findByIdAndUpdate(
             req.params.id,
-            {...req.body, coverImage:req.file.filename},
+            {...req.body, coverImage},
             { new: true }
         );
 
