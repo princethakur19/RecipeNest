@@ -151,10 +151,8 @@ const editRecipe = async (req, res) => {
 
 
 // DELETE RECIPE
-const deleteRecipe = (req, res) => {
-    res.json({
-        message: "hello"
-    });
+const deleteRecipe = async(req, res) => {
+    
 };
 
 

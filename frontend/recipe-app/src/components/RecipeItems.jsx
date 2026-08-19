@@ -9,6 +9,11 @@ function RecipeItems() {
     const allRecipe = useLoaderData()
     let path = window.location.pathname === "/myRecipe" ? true : false
     console.log(allRecipe)
+
+    const onDelete = async(id)=>{
+        await axios.delete(`http://localhost:5000/recipe/${id}`)
+            .then((res)=>console.log(res))
+    }
   return (
     <>
       <div className='card-container'>
@@ -25,7 +30,7 @@ function RecipeItems() {
                                 {(!path) ? <FaHeart /> :
                                 <div className="action">
                                     <Link to={`/editRecipe/${item._id}`} className='editIcon'><FaEdit /></Link>
-                                    <MdDelete className='deleteIcon' />
+                                    <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
                                 </div>  }
                             </div>
                         </div>
