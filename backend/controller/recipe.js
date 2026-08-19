@@ -151,16 +151,31 @@ const editRecipe = async (req, res) => {
 
 
 // DELETE RECIPE
-const deleteRecipe = async(req, res) => {
-    try{
-        await Recipe.deleteOne({_id:req.params.id})
-        res.json({status:"ok"})
-    }
-    catch(err){
-        return res.status(400).json({message:"error"})
+const deleteRecipe = async (req, res) => {
+    try {
+
+        const recipe = await Recipes.findByIdAndDelete(req.params.id);
+
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found"
+            });
+        }
+
+        return res.json({
+            status: "ok",
+            message: "Recipe deleted successfully"
+        });
+
+    } catch (err) {
+
+        console.log("DELETE RECIPE ERROR:", err);
+
+        return res.status(500).json({
+            message: err.message
+        });
     }
 };
-
 
 module.exports = {
     getRecipes,

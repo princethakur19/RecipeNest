@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import foodImg from "../assets/foodRecipe.png";
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
@@ -20,12 +19,21 @@ function RecipeItems() {
     setAllRecipes(recipes);
   }, [recipes]);
 
+  // DELETE RECIPE
   const onDelete = async (id) => {
-    await axios
-      .delete(`http://localhost:5000/recipe/${id}`)
-      .then((res) => console.log(res));
+    try {
+      const response = await axios.delete(`http://localhost:5000/recipe/${id}`);
 
-    setAllRecipes((recipes) => recipes.filter((recipe) => recipe._id != id));
+      console.log(response.data);
+
+      // Remove deleted recipe from screen
+      setAllRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe._id !== id),
+      );
+    } catch (error) {
+      console.log(error);
+      console.log(error.response?.data);
+    }
   };
 
   return (
@@ -33,7 +41,7 @@ function RecipeItems() {
       <div className="card-container">
         {allRecipes?.map((item, index) => {
           return (
-            <div key={index} className="card">
+            <div key={item._id} className="card">
               <img
                 src={`http://localhost:5000/images/${item.coverImage}`}
                 alt={item.title}
