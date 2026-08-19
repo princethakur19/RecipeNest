@@ -4,15 +4,22 @@ import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useState } from 'react';
 
 function RecipeItems() {
-    const allRecipe = useLoaderData()
+    const recipes = useLoaderData()
+    const [allRecipes, setAllRecipes] = useState()
     let path = window.location.pathname === "/myRecipe" ? true : false
     console.log(allRecipe)
+
+    useEffect(()=>{
+        setAllRecipes(recipes)
+    },[recipes])
 
     const onDelete = async(id)=>{
         await axios.delete(`http://localhost:5000/recipe/${id}`)
             .then((res)=>console.log(res))
+        setAllRecipes(recipes => recipes.filter(recipes._id != id))
     }
   return (
     <>
