@@ -11,10 +11,14 @@ function RecipeItems() {
 
   const [allRecipes, setAllRecipes] = useState([]);
 
-  let path = window.location.pathname === "/myRecipe" ? true : false;
+  // Get favorites from Local Storage
+  const [favItems, setFavItems] = useState(
+    JSON.parse(localStorage.getItem("fav")) ?? [],
+  );
 
-  console.log(allRecipes);
+  const path = window.location.pathname === "/myRecipe";
 
+  // Load recipes
   useEffect(() => {
     setAllRecipes(recipes);
   }, [recipes]);
@@ -22,68 +26,87 @@ function RecipeItems() {
   // DELETE RECIPE
   const onDelete = async (id) => {
     try {
+      const response = await axios.delete(`http://localhost:5000/recipe/${id}`);
 
-        const response = await axios.delete(
-            `http://localhost:5000/recipe/${id}`
-        );
+      console.log(response.data);
 
-        console.log(response.data);
-
-        setAllRecipes(prevRecipes =>
-            prevRecipes.filter(recipe => recipe._id !== id)
-        );
-
+      setAllRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe._id !== id),
+      );
     } catch (error) {
-
-        console.log("DELETE ERROR:", error);
-        console.log("SERVER ERROR:", error.response?.data);
-
+      console.log("DELETE ERROR:", error);
+      console.log("SERVER ERROR:", error.response?.data);
     }
-};
+  };
+
+  // ❤️ ADD / REMOVE FAVORITE
+  const favRecipe = (item) => {
+    const alreadyFavorite = favItems.some((recipe) => recipe._id === item._id);
+
+    let updatedFavorites;
+
+    if (alreadyFavorite) {
+      // Remove from favorites
+      updatedFavorites = favItems.filter((recipe) => recipe._id !== item._id);
+    } else {
+      // Add to favorites
+      updatedFavorites = [...favItems, item];
+    }
+
+    // Update React state
+    setFavItems(updatedFavorites);
+
+    // Save to Local Storage
+    localStorage.setItem("fav", JSON.stringify(updatedFavorites));
+  };
 
   return (
-    <>
-      <div className="card-container">
-        {allRecipes?.map((item, index) => {
-          return (
-            <div key={item._id} className="card">
-              <img
-                src={`http://localhost:5000/images/${item.coverImage}`}
-                alt={item.title}
-                width="120px"
-                height="100px"
-              />
+    <div className="card-container">
+      {allRecipes?.map((item) => (
+        <div key={item._id} className="card">
+          <img
+            src={`http://localhost:5000/images/${item.coverImage}`}
+            alt={item.title}
+            width="120px"
+            height="100px"
+          />
 
-              <div className="card-body">
-                <div className="title">{item.title}</div>
+          <div className="card-body">
+            <div className="title">{item.title}</div>
 
-                <div className="icons">
-                  <div className="timmer">
-                    <BsFillStopwatchFill />
-                    {item.time}
-                  </div>
+            <div className="icons">
+              <div className="timmer">
+                <BsFillStopwatchFill />
 
-                  {!path ? (
-                    <FaHeart />
-                  ) : (
-                    <div className="action">
-                      <Link to={`/editRecipe/${item._id}`} className="editIcon">
-                        <FaEdit />
-                      </Link>
-
-                      <MdDelete
-                        onClick={() => onDelete(item._id)}
-                        className="deleteIcon"
-                      />
-                    </div>
-                  )}
-                </div>
+                {item.time}
               </div>
+
+              {!path ? (
+                <FaHeart
+                  onClick={() => favRecipe(item)}
+                  style={{
+                    color: favItems.some((recipe) => recipe._id === item._id)
+                      ? "red"
+                      : "",
+                  }}
+                />
+              ) : (
+                <div className="action">
+                  <Link to={`/editRecipe/${item._id}`} className="editIcon">
+                    <FaEdit />
+                  </Link>
+
+                  <MdDelete
+                    onClick={() => onDelete(item._id)}
+                    className="deleteIcon"
+                  />
+                </div>
+              )}
             </div>
-          );
-        })}
-      </div>
-    </>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
