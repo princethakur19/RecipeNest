@@ -22,19 +22,24 @@ function RecipeItems() {
   // DELETE RECIPE
   const onDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/recipe/${id}`);
 
-      console.log(response.data);
+        const response = await axios.delete(
+            `http://localhost:5000/recipe/${id}`
+        );
 
-      // Remove deleted recipe from screen
-      setAllRecipes((prevRecipes) =>
-        prevRecipes.filter((recipe) => recipe._id !== id),
-      );
+        console.log(response.data);
+
+        setAllRecipes(prevRecipes =>
+            prevRecipes.filter(recipe => recipe._id !== id)
+        );
+
     } catch (error) {
-      console.log(error);
-      console.log(error.response?.data);
+
+        console.log("DELETE ERROR:", error);
+        console.log("SERVER ERROR:", error.response?.data);
+
     }
-  };
+};
 
   return (
     <>
