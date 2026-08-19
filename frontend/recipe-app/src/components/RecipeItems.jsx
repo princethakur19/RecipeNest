@@ -23,31 +23,55 @@ function RecipeItems() {
     setAllRecipes(recipes);
   }, [recipes]);
 
+  // =========================
   // DELETE RECIPE
+  // =========================
+
   const onDelete = async (id) => {
     try {
+      // Delete recipe from MongoDB
       const response = await axios.delete(`http://localhost:5000/recipe/${id}`);
 
       console.log(response.data);
 
+      // Remove recipe from screen
       setAllRecipes((prevRecipes) =>
-        prevRecipes.filter((recipe) => recipe._id !== id),
+        prevRecipes.filter((recipe) => String(recipe._id) !== String(id)),
       );
+
+      // Remove deleted recipe from favorites
+      const updatedFavorites = favItems.filter(
+        (recipe) => String(recipe._id) !== String(id),
+      );
+
+      // Update React state
+      setFavItems(updatedFavorites);
+
+      // Update Local Storage
+      localStorage.setItem("fav", JSON.stringify(updatedFavorites));
     } catch (error) {
       console.log("DELETE ERROR:", error);
+
       console.log("SERVER ERROR:", error.response?.data);
     }
   };
 
-  // ❤️ ADD / REMOVE FAVORITE
+  // =========================
+  // ADD / REMOVE FAVORITE
+  // =========================
+
   const favRecipe = (item) => {
-    const alreadyFavorite = favItems.some((recipe) => recipe._id === item._id);
+    const alreadyFavorite = favItems.some(
+      (recipe) => String(recipe._id) === String(item._id),
+    );
 
     let updatedFavorites;
 
     if (alreadyFavorite) {
       // Remove from favorites
-      updatedFavorites = favItems.filter((recipe) => recipe._id !== item._id);
+      updatedFavorites = favItems.filter(
+        (recipe) => String(recipe._id) !== String(item._id),
+      );
     } else {
       // Add to favorites
       updatedFavorites = [...favItems, item];
@@ -56,7 +80,7 @@ function RecipeItems() {
     // Update React state
     setFavItems(updatedFavorites);
 
-    // Save to Local Storage
+    // Update Local Storage
     localStorage.setItem("fav", JSON.stringify(updatedFavorites));
   };
 
@@ -82,15 +106,19 @@ function RecipeItems() {
               </div>
 
               {!path ? (
+                // ❤️ FAVORITE
                 <FaHeart
                   onClick={() => favRecipe(item)}
                   style={{
-                    color: favItems.some((recipe) => recipe._id === item._id)
+                    color: favItems.some(
+                      (recipe) => String(recipe._id) === String(item._id),
+                    )
                       ? "red"
                       : "",
                   }}
                 />
               ) : (
+                // EDIT + DELETE
                 <div className="action">
                   <Link to={`/editRecipe/${item._id}`} className="editIcon">
                     <FaEdit />
