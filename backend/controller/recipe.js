@@ -152,7 +152,13 @@ const editRecipe = async (req, res) => {
 
 // DELETE RECIPE
 const deleteRecipe = async(req, res) => {
-    
+    try{
+        await Recipe.deleteOne({_id:req.params.id})
+        res.json({status:"ok"})
+    }
+    catch(err){
+        return res.status(400).json({message:"error"})
+    }
 };
 
 
